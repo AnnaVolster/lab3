@@ -27,10 +27,9 @@ public:
 
 	
 	}
-
-
+	int count = 0;
 	void Run() {
-		while (true) {
+		while (1) {
 			try {
 
 				ShowMenu();
@@ -39,6 +38,9 @@ public:
 				cin >> action;
 
 				_menuItems.at(action).Func();
+
+				if (action == 0) count++;
+				
 			}
 
 			catch (const exception& ex) {
@@ -66,13 +68,21 @@ private:
 	};
 
 	void AddTriangleDialog() {
-		//_shapes.push_back(ShapeDialogFactory().CreateDialog()->InputShape());
-		_figures.push_back(_figure);
-		_figures.at(0).shapes.push_back(ShapeDialogFactory().CreateDialog()->InputShape());
+		//_figures.push_back(_figure);
+	_shapes.push_back(ShapeDialogFactory().CreateDialog()->InputShape());
+		//_figures.at(count).shapes.push_back(ShapeDialogFactory().CreateDialog()->InputShape());
+		//_figures.at(count).figureType = "Square";
+		//_figures.at(count).figureType->push_back(ShapeDialogFactory().CreateDialog()->Type());
+		//strcpy(_figures.at(count).figureType, ShapeDialogFactory().CreateDialog()->Type());
+		//_figures.figureType.at(count).push_back(ShapeDialogFactory().CreateDialog()->Type);
+		//_figures.at(count).figureType = 'S';
 	}
+
 	void ShowListShapeDialog() {
-		for (int i = 0; i < _menuItems.size(); ++i) {
-			//cout << _shapes.at(i) << endl;
+		for (int i = 0; i < count; ++i) {
+		//cout << _figures.at(i).figureType << endl;
+		//cout << "Shape" << endl;
+			cout << i << _shapes.at(i)->Type() << endl;
 		}
 	}
 
@@ -82,8 +92,14 @@ private:
 	}
 
 	void CalcSquareDialog() {
-		cout << "Which one of figure ";
-		//cout << _shapes[0]->GiveSquare() << endl;
+		int tmp;
+		cout << "Which one of figure: ";
+		cin >>tmp;
+		cout << "Square is" << endl;
+		if (tmp < count) {
+			cout << _shapes.at(tmp)->GiveSquare() << endl;
+			//cout << _figures.at(tmp).shapes.at(0)->GiveSquare() << endl;
+		}
 	}
 
 	void CalcCenterGravDialog() {
@@ -98,14 +114,16 @@ private:
 	}
 
 	vector<MenuItem> _menuItems;
-	//vector<IShape*> _shapes;
+	vector<IShape*> _shapes;
+	/*
 	
 	struct Figure {
 		vector<IShape*> shapes;
-		char figureType;
+		std::string figureType;
 		int side_a, side_b;
 	};
 
 	vector<Figure> _figures;
 	Figure _figure;
+	*/
 };

@@ -1,5 +1,6 @@
 #pragma once
 #include "ShapeBase.h"
+#include <string>
 
 class Rectangle : public ShapeBase 
 {
@@ -23,6 +24,11 @@ public:
 		if (pos == 1) return _side_a;
 		else if (pos == 2) return _side_b;
 		else throw std::exception();
+	}
+	
+	virtual std::string Type() const {
+		std::string typeShape = "Rectangle";
+		return typeShape;
 	}
 	//virtual double Rotate(int pos)  const = 0;
 	//virtual double Move(int pos)  const = 0;

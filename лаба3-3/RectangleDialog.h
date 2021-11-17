@@ -16,4 +16,7 @@ public:
 		std::cin >> side_a >> side_b;
 		return new Rectangle(side_a, side_b);
 	}
+
+	
+	
 };
