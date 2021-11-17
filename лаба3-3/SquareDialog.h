@@ -9,10 +9,10 @@ public:
 	
 	
 	 virtual IShape* InputShape() {
-		int side;
-		std::cout << "Enter the side:\n";
-		std::cin >> side;
-		return new Square(side);
+		//int side;
+		//std::cout << "Enter the side:\n";
+		//std::cin >> side;
+		return new Square();
 
 	}
 

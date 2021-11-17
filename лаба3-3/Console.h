@@ -9,7 +9,6 @@
 #include "ShapeDialogFactory.h"
 #include "IShapeinputDialog.h"
 
-
 using namespace std;
 
 class Console {
@@ -21,10 +20,13 @@ public:
 		_menuItems.push_back(MenuItem{ "Show list of Shapes", std::bind(&Console::ShowListShapeDialog, this) });
 		_menuItems.push_back(MenuItem{ "Show the Shape", std::bind(&Console::ShowShapeDialog, this) }); 
 		_menuItems.push_back(MenuItem{ "Calculate Square of the shape ", std::bind(&Console::CalcSquareDialog, this) });
-		_menuItems.push_back(MenuItem{ "Calculate Center Gravity", std::bind(&Console::CalcSquareDialog, this) });
-		_menuItems.push_back(MenuItem{ "Rotate shape", std::bind(&Console::CalcSquareDialog, this) });
-		_menuItems.push_back(MenuItem{ "Move shape", std::bind(&Console::CalcSquareDialog, this) });
-
+		_menuItems.push_back(MenuItem{ "Calculate Center Gravity", std::bind(&Console::CalcCenterGravDialog, this) });
+		_menuItems.push_back(MenuItem{ "Rotate shape", std::bind(&Console::RotateShapeDialog, this) });
+		_menuItems.push_back(MenuItem{ "Move shape", std::bind(&Console::MoveShapeDialog, this) });
+		_menuItems.push_back(MenuItem{ "Compare shapes", std::bind(&Console::CompareDialog, this) });
+		_menuItems.push_back(MenuItem{ "Intersection shapes", std::bind(&Console::IntersectionDialog, this) });
+		_menuItems.push_back(MenuItem{ "Including shapes", std::bind(&Console::IncludeDialog, this) });
+		
 	
 	}
 	int count = 0;
@@ -34,9 +36,14 @@ public:
 
 				ShowMenu();
 
+				cout << endl;
+
 				int action;
+				cout << "Enter your choice: ";
 				cin >> action;
 
+				cout << endl;
+				
 				_menuItems.at(action).Func();
 
 				if (action == 0) count++;
@@ -53,6 +60,9 @@ public:
 		
 	}
 
+	~Console() {
+
+	}
 private:
 
 	void ShowMenu() {
@@ -68,21 +78,12 @@ private:
 	};
 
 	void AddTriangleDialog() {
-		//_figures.push_back(_figure);
-	_shapes.push_back(ShapeDialogFactory().CreateDialog()->InputShape());
-		//_figures.at(count).shapes.push_back(ShapeDialogFactory().CreateDialog()->InputShape());
-		//_figures.at(count).figureType = "Square";
-		//_figures.at(count).figureType->push_back(ShapeDialogFactory().CreateDialog()->Type());
-		//strcpy(_figures.at(count).figureType, ShapeDialogFactory().CreateDialog()->Type());
-		//_figures.figureType.at(count).push_back(ShapeDialogFactory().CreateDialog()->Type);
-		//_figures.at(count).figureType = 'S';
+		_shapes.push_back(ShapeDialogFactory().CreateDialog()->InputShape());
 	}
 
 	void ShowListShapeDialog() {
 		for (int i = 0; i < count; ++i) {
-		//cout << _figures.at(i).figureType << endl;
-		//cout << "Shape" << endl;
-			cout << i << _shapes.at(i)->Type() << endl;
+			cout << i << "-" << _shapes.at(i)->Type() << endl;
 		}
 	}
 
@@ -95,35 +96,88 @@ private:
 		int tmp;
 		cout << "Which one of figure: ";
 		cin >>tmp;
-		cout << "Square is" << endl;
+		cout << "Square is: ";
 		if (tmp < count) {
 			cout << _shapes.at(tmp)->GiveSquare() << endl;
-			//cout << _figures.at(tmp).shapes.at(0)->GiveSquare() << endl;
 		}
 	}
 
 	void CalcCenterGravDialog() {
-
+		int tmp;
+		cout << "Which one of figure: ";
+		cin >> tmp;
+		cout << "CenterGrav x, y:" << endl;
+		if (tmp < count) {
+			_shapes.at(tmp)->GiveCenterGrav();
+		}
 	}
 
 	void RotateShapeDialog() {
-
+		int tmp, angle;
+		cout << "Which one of figure: ";
+		cin >> tmp;
+		cout << "Enter the angle to rotate: " << endl;
+		cin >> angle;
+		if (tmp < count) {
+			_shapes.at(tmp)->Rotate(angle, _shapes.at(tmp)->CoordCenterGrav(1), _shapes.at(tmp)->CoordCenterGrav(2));
+		}
+		cout << "The shape is rotated";
 	}
 
 	void MoveShapeDialog() {
+		int tmp;
+		cout << "Which one of figure: ";
+		cin >> tmp;
+		if (tmp < count) {
+			_shapes.at(tmp)->Move();
+		}
+		cout << "The shape is moved";
 	}
 
+
+	void CompareDialog() {
+		int tmp1, tmp2;
+		cout << "Enter two numbers of figures: ";
+		cin >> tmp1 >> tmp2;
+		if (tmp1 < count) {
+			if ((_shapes.at(tmp1)->Compare(*_shapes.at(tmp2)))==1)
+				cout << "The square of the first figure is larger" << endl;
+			else cout << "The square of the second figure is larger" << endl;
+		}
+	}
+
+	void IntersectionDialog() {
+		int tmp1, tmp2;
+		cout << "Enter two numbers of figures: ";
+		cin >> tmp1 >> tmp2;
+		if (tmp1 < count) {
+			if ((_shapes.at(tmp1)->Intersection(*_shapes.at(tmp2)))==1) 
+				cout << "There is an intersection"<< endl;
+
+			else if ((_shapes.at(tmp1)->Intersection(*_shapes.at(tmp2))) == 0) 
+				cout << "No intersection"<< endl;
+			
+		}
+		
+	}
+
+	
+		void IncludeDialog() {
+		int tmp1, tmp2;
+		cout << "Enter two numbers of figures: ";
+		cin >> tmp1 >> tmp2;
+		if (tmp1 < count) {
+			if ((_shapes.at(tmp1)->Include(*_shapes.at(tmp2))) == 1)
+				cout << "The first figure include the second" << endl;
+
+			else if ((_shapes.at(tmp1)->Include(*_shapes.at(tmp2))) == 0)
+				cout << "Isn't  included" << endl;
+		}
+
+	}
+	
 	vector<MenuItem> _menuItems;
 	vector<IShape*> _shapes;
-	/*
 	
-	struct Figure {
-		vector<IShape*> shapes;
-		std::string figureType;
-		int side_a, side_b;
-	};
-
-	vector<Figure> _figures;
-	Figure _figure;
-	*/
+	
 };
