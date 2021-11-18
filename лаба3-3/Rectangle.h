@@ -21,12 +21,22 @@ public:
 		width = sqrt((arc[2].x - arc[1].x) * (arc[2].x - arc[1].x) + (arc[2].y - arc[1].y) * (arc[2].y - arc[1].y));
 		_CenterGrav_x = arc[0].x + width / 2;
 		_CenterGrav_y = arc[0].y - hight / 2;
+		if (hight != (sqrt((arc[3].x - arc[2].x) * (arc[3].x - arc[2].x) + (arc[3].y - arc[2].y) * (arc[3].y - arc[2].y)))
+			&&
+			width != (sqrt((arc[0].x - arc[3].x) * (arc[0].x - arc[3].x) + (arc[0].y - arc[3].y) * (arc[0].y - arc[3].y))))
+		{
+			throw std::exception("Isn't a rectangle!");
+		}
+		if ((acos(((arc[1].x - arc[0].x * (arc[2].x - arc[1].x)) + (arc[1].y - arc[0].y * (arc[2].y - arc[1].y))) /
+			(sqrt((arc[1].x - arc[0].x) * (arc[1].x - arc[0].x) + (arc[1].y - arc[0].y) * (arc[1].y - arc[0].y)) * sqrt((arc[2].x - arc[1].x) * (arc[2].x - arc[1].x) + (arc[2].y - arc[1].y) * (arc[2].y - arc[1].y)))) != 0) && acos(((arc[3].x - arc[2].x * (arc[0].x - arc[3].x)) + (arc[3].y - arc[2].y * (arc[0].y - arc[3].y))) /
+				(sqrt((arc[3].x - arc[2].x) * (arc[3].x - arc[2].x) + ((arc[3].y - arc[2].y) * ((arc[3].y - arc[2].y)) * sqrt((arc[0].x - arc[3].x) * (arc[0].x - arc[3].x) + (arc[0].y - arc[3].y) * arc[0].y - arc[3].y)))) != 0)) {
+
+			throw std::exception("Isn't a rectangle!");
+		}
 	}
 
 
-	virtual double GiveSquare() const  {
-		return hight * width;
-	}
+	virtual double GiveSquare() const  { return hight * width; }
 	
 	virtual double CoordCenterGrav(int pos) const {
 		if (pos == 1) return _CenterGrav_x;

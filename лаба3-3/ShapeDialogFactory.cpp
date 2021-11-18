@@ -20,6 +20,6 @@ IShapeinputDialog* ShapeDialogFactory::CreateDialog() {
 	case 2:
 		return new RectangleDialog();
 
-	default: throw std::exception();
+	default: throw std::exception("Incorrect number of figure");
 	}
 }
