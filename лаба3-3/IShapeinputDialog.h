@@ -7,5 +7,4 @@
 class IShapeinputDialog {
 public:
 	virtual IShape* InputShape() = 0;
-	//virtual std::string Type() = 0;
 };

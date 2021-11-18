@@ -23,24 +23,3 @@ IShapeinputDialog* ShapeDialogFactory::CreateDialog() {
 	default: throw std::exception();
 	}
 }
-/*
-
-IShape* ShapeDialogFactory::CalculateDialog() {
-	int actType = 0;
-
-	std::cout << "Calculate:\n 1 - Square;\n 2 - Center Gravity.\n";
-
-	std::cin >> actType;
-
-	switch (actType) {
-
-	case 1:
-		return new SquareDialog();
-	case 2:
-		return new RectangleDialog();
-
-	default: throw std::exception();
-	}
-
-}
-*/

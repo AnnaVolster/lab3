@@ -12,27 +12,17 @@ public:
 
 	virtual double GiveSquare() const { return Side(0) * Side(1); }
 
+	virtual void CoordShape() const override {
+		for (int i = 0; i < 4; i++) {
+			cout << arc[i].x << " " << arc[i].y << endl;
+		}
+	}
+
 	virtual void GiveCenterGrav() const {
 		cout << CoordCenterGrav(1) << ",";
 		cout << CoordCenterGrav(2);
 	}
-	/*
-	virtual double Rotate()  const {
-		int Deg;
-		cout << "Введите градус поворота изображения:\n 1)0\n 2)90 \n 3)180 \n 4)360 " << endl;
-		cin >> Deg;
-		switch (Deg) {
-		case 0: {return 0; }
-		case 90: {}
-		case 180: {}
-		case 360: {}
-		default: return 0;
 
-		}
-	}
-	*/
-
-	
 void Rotate(int angle, double xc, double yc) const {
 
 //фигура вначале смещается в центр координат.
@@ -170,4 +160,5 @@ void Rotate(int angle, double xc, double yc) const {
 
 		return res;
 	}
+	
 };

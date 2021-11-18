@@ -45,8 +45,9 @@ public:
 		return typeShape;
 	}
 	
-	~Rectangle()
+  ~Rectangle()
 	{
+	  if (&arc!=nullptr)
 		delete[] arc;
 	}
 

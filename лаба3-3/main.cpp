@@ -1,7 +1,6 @@
 ﻿
 #include <iostream>
 #include "Console.h"
-#include "vld.h"
 
 int main()
 { 

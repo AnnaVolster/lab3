@@ -24,6 +24,7 @@ public:
 
 	virtual double GiveSquare() const { return _side * _side; }
 
+	
 	virtual double CoordCenterGrav(int pos) const { 
 		if (pos == 1) return _CenterGrav_x;
 		else if (pos == 2) return _CenterGrav_y;
@@ -39,7 +40,8 @@ public:
 
 	~Square()
 	{
-		delete[] arc;
+		if (&arc != nullptr)
+			delete[] arc;
 	}
 
 private:
